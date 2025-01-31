@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Management System</title>
+    <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>User Profile Management System</h1>
+        <nav>
+            <ul>
+                <li><a href="#section1">User Profile</a></li>
+                <li><a href="#section3">Additional features</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="editmodal hidden" id="editmodal">
+        <form id="editform">
+            <div class="headgrp">
+                <h2>User Profile Form</h2>
+                <span id="closebtn">X</span>
+            </div>
+            <p>Only fill-up things you need to update</p>
+                <div class="formgrp">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName">
+                </div>
+                
+                <div class="formgrp">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName">
+                </div>
+                
+                <div class="formgrp">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age">
+                </div>
+                
+                <div class="formgrp">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city">
+                </div>
+                
+                <div class="formgrp">
+                    <label for="street">Street:</label>
+                    <input type="text" id="street" name="street">
+                </div>
+                
+                <div class="formgrp">
+                    <label for="zipcode">Zip Code:</label>
+                    <input type="text" id="zipcode" name="zipcode">
+                </div>
+        
+                <button type="submit" >Update Profile</button>
+        </form>
+    </div>
+    <main class="container">
+        <section id="section1">
+            <div class="sesctioncontent">
+                <div class="headgrp">
+                    <h2>User Profile</h2>
+                    <div class="actiondiv">
+                        <button type="button" id="editbtn">Edit Profile</button>
+                        <button type="button" id="greetbtn">Get Greetings</button>
+                    </div>
+                </div>
+                    <div class="profilegrp">
+                        <p>First Name : <span id="firstName"></span></p>
+                        <p>Last Name : <span id="lastName"></span></p>
+                        <p>Age : <span id="age"></span></p>
+                    </div>
+                    <div class="profilegrp">
+                        <p>City : <span id="city"></span></p>
+                        <p>Street Name : <span id="streetName"></span></p>
+                        <p>Zip Code : <span id="zipcode"></span></p>
+                    </div>
+
+            </div>
+        </section>
+        <section id="section3">
+            <div class="additionalfeatures">
+                <div class="fibonacciGenerator feat">
+                    <label for="fiboinput">No. of Fibo Sequence</label>
+                    <input type="number" id="fiboinput">
+                    <button type="button" id="fibobtn">Get Fibo</button>
+                    <p id="fibooutput"></p>
+                </div>
+                <div class="imageviewever feat">
+                        <img id="imageid" alt="img from internet">
+                        <button type="button" id="imgnew">Get new image</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="/src/index.js"></script>
+    <script type="module" src="/src/Controllers.js"></script>
+</body>
+</html>
