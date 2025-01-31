@@ -13,10 +13,6 @@ import { users, emailList } from "./data";
             console.log(users.set(user.id, user));
             console.log(emailList.add(user.email));
         }
-        updateUser(user){
-            console.log(users.set(user.id, user));
-             console.log(emailList.add(user.email));
-        }
          viewAllUsers(){
             return users;
         }
@@ -40,6 +36,9 @@ import { users, emailList } from "./data";
             this.userUI.setProfileValues(users.get(this.currentUserId));
         }
         
+        trySettingGreeting(){
+            this.userUI.setGreeting(users.get(this.currentUserId));
+        }
     }
 
 class UIController{
@@ -63,6 +62,17 @@ class UIController{
     setImage(img){
         document.getElementById("imageid").src = img;
     }
+
+    setGreeting(user){
+        document.getElementById("greetingcard").classList.remove("hidden");
+        document.getElementById("greetingmessage").innerHTML = this.generategreetMessage(user)
+    }
+
+    generategreetMessage(user){
+        return `
+        Hello, this is ${user.firstName} ${user.lastName},
+        from ${user.city}.`
+    }
 }
 
 export class AdditionalFeatures{
@@ -70,6 +80,7 @@ export class AdditionalFeatures{
         this.ui = new UIController();
         this.generator = this.imgGenerator(); 
     }
+
     generateFibo(n) {
         const fibo = [...this.fibonacci(n)]; 
         console.log(fibo);
@@ -98,7 +109,7 @@ export class AdditionalFeatures{
     }
     
     async getImageFromInternet() {
-        const { value: user } = await this.generator.next(); 
+        const user = (await this.generator.next()).value; 
     
         if (user && user.image) {
             this.ui.setImage(user.image);

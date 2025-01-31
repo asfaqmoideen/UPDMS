@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const addfeat = new AdditionalFeatures();
     userCon.populateUserProfile();
     addfeat.getImageFromInternet();
+    
     document.getElementById("fibobtn").addEventListener("click", () => {
         addfeat.generateFibo(document.getElementById("fiboinput").value);
     })
@@ -19,6 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById('closebtn').addEventListener("click", ()=>{
         document.getElementById("editmodal").classList.add("hidden")
+    });
+
+    document.getElementById("greetbtn").addEventListener("click", ()=>{
+        userCon.trySettingGreeting()
+    })
+    document.getElementById('greetclose').addEventListener("click", ()=>{
+        document.getElementById('greetingcard').classList.add("hidden");
     })
 
     const form = document.getElementById('editform');
