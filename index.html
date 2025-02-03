@@ -21,7 +21,7 @@
         <form id="editform">
             <div class="headgrp">
                 <h2>User Profile Form</h2>
-                <span id="closebtn">X</span>
+                <span id="closebtn" class="close">X</span>
             </div>
             <p>Only fill-up things you need to update</p>
                 <div class="formgrp">
@@ -54,19 +54,33 @@
                     <input type="text" id="zipcode" name="zipcode">
                 </div>
         
-                <button type="submit" >Update Profile</button>
+                <button type="submit" id="profile-submit" >Update Profile</button>
         </form>
     </div>
     <div class="modal hidden" id="greetingcard">
         <div class="headgrp">
             <h3>Greetings</h3>
-            <span id="greetclose">X</span>
+            <span id="greetclose" class="close">X</span>
         </div>
         <p id="greetingmessage"></p>
     </div>
     <main class="container">
         <section id="section1">
-            <div class="sesctioncontent">
+            <div class="headgrp">
+                <h2>All Profiles</h2>
+                <div class="actiondiv">
+                    <button type="button" id="addbtn">Add profile</button>
+                </div>
+
+            </div>
+            <div class="table-container">
+                <table id="usersTable">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="profile hidden" id="profilecard">
+            <div class="sesctioncontent" >
                 <div class="headgrp">
                     <h2>User Profile</h2>
                     <div class="actiondiv">
@@ -86,8 +100,10 @@
                     </div>
 
             </div>
+            </div>
         </section>
         <section id="section3">
+            <h2>Additional Features</h2>
             <div class="additionalfeatures">
                 <div class="fibonacciGenerator feat">
                     <label for="fiboinput">No. of Fibo Sequence</label>

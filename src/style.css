@@ -40,6 +40,8 @@ nav ul li{
 }
 a{
     font-weight: bolder;
+    text-decoration: none;
+    color: #ccc;
 }
 
 .container {
@@ -77,22 +79,27 @@ a{
 }
 
 form p{
-    font-size: small;
+    font-size: smaller;
     font-style: italic;
     opacity: .6;
 }
+
+.hidden{
+    display: none;
+}
+
 .headgrp{
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
-.actiondiv{
-    
-}
+
 section {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    gap: 2rem;
     justify-content: center;
     align-items: center;
     scroll-snap-align: start;
@@ -105,7 +112,7 @@ section {
 
 .sesctioncontent{
     width: max-content;
-    padding: 3rem;
+    padding: 2rem;
     background-color: aliceblue;
     border: 1px solid #333;
     border-radius: 1rem;
@@ -119,9 +126,14 @@ section {
     justify-content: space-around;
     gap: 2rem;
 }
+
+.profilegrp span{
+    font-style: italic;
+}
 #section1 {
     background: #f8f9fa;
 }
+
 
 
 .feat{
@@ -153,3 +165,42 @@ input, button{
     border: none;
     padding: .5rem;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  
+  .table-container {
+    height: calc(100vh - 14rem);
+    overflow-y: auto;
+    width: 100%;
+  }
+  
+  table thead {
+    background: linear-gradient(to right, #5b5454cc 0%, #333 100%);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  td{
+    padding: .5rem;
+  }
+  
+  .actioncell{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding: .5rem;
+  }
+
+  .btnspan{
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  tr{
+    border-bottom: #333 solid 1px;
+  }
