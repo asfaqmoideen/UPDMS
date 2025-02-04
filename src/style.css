@@ -110,12 +110,87 @@ section {
     width: 66%;
 }
 
+
+#sidebar {
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-image: linear-gradient(to top, #74ebd5 0%, #9face6 100%);
+    color: white;
+    padding-top: 20px;
+    font-size: 18px;
+    z-index: 10;
+}
+
+#sidebar .sidebar-header {
+    padding: 10px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar nav ul li {
+    padding: 15px;
+    text-align: left;
+}
+
+#sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+header {
+    position: fixed;
+    top: 0;
+    left: 200px; 
+    width: calc(100% - 200px); 
+    background-image: linear-gradient(to left, #74ebd5 0%, #9face6 100%);
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9; 
+}
+
+header nav ul {
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li {
+    list-style: none;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+#content {
+    margin-left: 200px;
+    margin-top: 70px; 
+    width: calc(100% - 200px);
+}
+
 .feat{
     display: flex;
     flex-direction: column;
     gap: 1rem;
-
 }
+
 .additionalfeatures{
     display: flex;
     gap: 3rem;
@@ -198,79 +273,6 @@ button{
     z-index: 11;
 }
 
-#sidebar {
-    width: 200px;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-image: linear-gradient(to top, #74ebd5 0%, #9face6 100%);
-    color: white;
-    padding-top: 20px;
-    font-size: 18px;
-    z-index: 10;
-}
-
-#sidebar .sidebar-header {
-    padding: 10px;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-#sidebar nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-#sidebar nav ul li {
-    padding: 15px;
-    text-align: left;
-}
-
-#sidebar nav ul li a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-
-
-header {
-    position: fixed;
-    top: 0;
-    left: 200px; 
-    width: calc(100% - 200px); 
-    background-image: linear-gradient(to left, #74ebd5 0%, #9face6 100%);
-    color: white;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 9; 
-}
-
-header nav ul {
-    display: flex;
-    gap: 20px;
-}
-
-header nav ul li {
-    list-style: none;
-}
-
-header nav ul li a {
-    color: white;
-    text-decoration: none;
-}
-
-#content {
-    margin-left: 200px;
-    margin-top: 70px; 
-    width: calc(100% - 200px);
-}
 
 
 #toast-container {
@@ -323,3 +325,7 @@ header nav ul li a {
     width: 40%;
 }
 
+#greetingmessage{
+    padding: 1rem;
+    line-height: 1.5rem;
+}

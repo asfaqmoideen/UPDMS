@@ -102,8 +102,8 @@ import { users, emailList } from "./data";
 
     generategreetMessage(user){
         return `
-        Hello, this is ${user.firstName} ${user.lastName},
-        from ${user.city}.`
+        Hello, this is ${user.firstName} ${user.lastName}, <br>
+        from ${user.address.street}, ${user.city}.`
     }
 
     setUsersTable(){
@@ -168,7 +168,7 @@ import { users, emailList } from "./data";
     }
     
     getToString(object){
-        return Object.values(object).join(",");
+        return Object.values(object).join(", ");
     }
 
     createActionCell(key){
