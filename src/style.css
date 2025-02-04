@@ -20,7 +20,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    background: #333;
+    background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
     color: white;
     padding: 15px;
     display: flex;
@@ -41,7 +41,7 @@ nav ul li{
 a{
     font-weight: bolder;
     text-decoration: none;
-    color: #ccc;
+    color: blanchedalmond
 }
 
 .container {
@@ -55,14 +55,15 @@ a{
 }
 
 .modal{
-    position: absolute;
+    position: fixed;
+    z-index: 1000;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ccc;
+    background-color: whitesmoke;
     padding: 1.5rem;
     border-radius: 1rem;
-
+    min-width: 20rem;
 }
 
 .formgrp{
@@ -166,6 +167,9 @@ input, button{
     padding: .5rem;
 }
 
+button:hover{
+    background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
+}
 table {
     width: 100%;
     border-collapse: collapse;
@@ -179,7 +183,7 @@ table {
   }
   
   table thead {
-    background: linear-gradient(to right, #5b5454cc 0%, #333 100%);
+    background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
     color: white;
     cursor: pointer;
     font-weight: bold;
@@ -198,9 +202,22 @@ table {
 
   .btnspan{
     cursor: pointer;
-    font-weight: 700;
   }
 
   tr{
     border-bottom: #333 solid 1px;
   }
+
+button{
+    cursor: pointer;
+}
+
+.background-modal{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}

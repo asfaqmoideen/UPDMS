@@ -15,25 +15,26 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     document.getElementById('editbtn').addEventListener("click", ()=> {
-        document.getElementById("editmodal").classList.remove("hidden");
+        userCon.userUI.showModal(true, 'editmodal')
     })
 
     document.getElementById('closebtn').addEventListener("click", ()=>{
-        document.getElementById("editmodal").classList.add("hidden")
+        userCon.userUI.showModal(false, 'editmodal')
     });
 
     document.getElementById("greetbtn").addEventListener("click", ()=>{
         userCon.trySettingGreeting()
     })
     document.getElementById('greetclose').addEventListener("click", ()=>{
-        document.getElementById('greetingcard').classList.add("hidden");
+        userCon.userUI.showModal(false, 'greetingcard');
     })
     
     document.getElementById('addbtn').addEventListener('click', ()=>{
-        document.getElementById("editmodal").classList.remove("hidden");
+        userCon.userUI.showModal(true, 'editmodal')
         document.getElementById("profile-submit").textContent = "Add Profile"
         
     })
+
     const form = document.getElementById('editform');
     form.addEventListener('submit', (event)=> {
         event.preventDefault();
@@ -46,6 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         userCon.tryeditingProfile(data);
         userCon.populateUsersTable();
-        document.getElementById("editmodal").classList.add("hidden");
     })
 })
+// 

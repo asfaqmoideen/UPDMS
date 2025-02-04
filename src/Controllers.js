@@ -5,18 +5,11 @@ import { users, emailList } from "./data";
             this.userId = 1;
         }
 
-        populateUserProfile(){
-            this.userUI.setProfileValues(users.get(1))
-        }
-
         populateUsersTable(){
             this.userUI.setUsersTable(users);
         }
         addUser(user){
-            console.log(users.set(user.id, user));
-        }
-         viewAllUsers(){
-            return users;
+            users.set(user.id, user);
         }
 
         tryeditingProfile({firstName,lastName,age,city,street,zipcode}){
@@ -39,6 +32,7 @@ import { users, emailList } from "./data";
         trySettingGreeting(userId){
             this.userUI.setGreeting(users.get(userId));
         }
+
         tryAddingUser({firstName,lastName,age,city,street,zipcode}){
             this.addUser({id : users.size+1 ,firstName : firstName,
                 lastName : lastName,
@@ -50,26 +44,31 @@ import { users, emailList } from "./data";
                 }})
            this.userUI.resetContextForAddUser();
            this.userUI.updateTableBody();
-           this.userUI.showFormModal(false);
+           this.userUI.showModal(false, 'editmodal');
         }
-        tryRemovingUser(userId){
-            users.delete(userId);
-            this.userUI.updateTableBody();
+
+        async tryRemovingUser(userId){
+            this.userUI.userConfirm(`delete ${users.get(userId).firstName} ?`)
+            .then(result =>{
+                if(result){
+                    users.delete(userId);
+                    this.userUI.updateTableBody();
+                }
+            })
+            .catch(error =>{
+                console.error(error);
+            })
         }
     }
     
     class UIController{
         constructor(userCon){
-            this.tableHeadings = [{id : "ID"}, {firstName : "First Name"}, {lastName : "Last Name"}, {age : "Age"}, {city : "City"}, {address : "Address"} , {action: "Action"}]
+            this.tableHeadings = [{id : "ID"}, {firstName : "First Name"}, {lastName : "Last Name"}, {age : "Age"}, {city : "City"}, {address : "Address"} , {action: "Actions"}]
             this.userCon = userCon
         }
-        showFormModal(show){
-            const modal = document.getElementById("editmodal");
-            show ? modal.classList.remove("hidden") : modal.classList.add("hidden");
-        }
+
 
     resetContextForAddUser(){
-
         document.getElementById("profile-submit").textContent = "Edit Profile";
     }
 
@@ -94,7 +93,7 @@ import { users, emailList } from "./data";
     }
 
     setGreeting(user){
-        document.getElementById("greetingcard").classList.remove("hidden");
+        this.showModal(true, 'greetingcard')
         document.getElementById("greetingmessage").innerHTML = this.generategreetMessage(user)
     }
 
@@ -109,6 +108,20 @@ import { users, emailList } from "./data";
         this.updateTableBody();
     }
 
+    userConfirm(context){
+        this.showModal(true, 'confirmmodal');
+        document.getElementById("confirmspan").textContent = context;
+        return new Promise((resolve, reject) => {
+                document.getElementById("yesbtn").addEventListener('click', ()=>{
+                this.showModal(false,'confirmmodal');
+                resolve(true);
+            })
+            document.getElementById("nobtn").addEventListener("click",()=>{
+                this.showModal(false,'confirmmodal');
+                reject("User Cancelled Operation");
+            })
+        });
+    }
     setTableHeadings(){
         const tablehead = document.querySelector("#usersTable thead");
         tablehead.textContent = "";
@@ -125,13 +138,13 @@ import { users, emailList } from "./data";
         users.forEach((value, key) =>{
             const row = document.createElement("tr");
 
-            for(let x in value){
+            for(let innerKey in value){
                 const td = document.createElement('td');
-                if(typeof value[x] === "object"){
-                    td.textContent = this.getToString(value[x]);
+                if(typeof value[innerKey] === "object"){
+                    td.textContent = this.getToString(value[innerKey]);
                 }
                 else{
-                td.textContent = value[x];
+                td.textContent = value[innerKey];
                 }
                 row.appendChild(td);
             }
@@ -149,40 +162,51 @@ import { users, emailList } from "./data";
     createActionCell(key){
         const actions = document.createElement("div");
         actions.className = "actioncell";
-        actions.appendChild(this.createEditCell(key));
-        actions.appendChild(this.createRemoveCell(key));
-        actions.appendChild(this.createGreetingCell(key));
+        actions.appendChild(this.createEditButton(key));
+        actions.appendChild(this.createRemoveButton(key));
+        actions.appendChild(this.createGreetingButton(key));
         return actions;
     }
-    createEditCell(userId){
+    createEditButton(userId){
         const span = document.createElement("span");
-        span.textContent = "Edit";
-        span.className = "btnspan"
+        span.classList.add( "btnspan","fa-solid","fa-user-pen"); 
         span.addEventListener('click', ()=>{
-            this.showFormModal(true);
+            this.showModal(true, 'editmodal');
             this.userCon.userId = userId;
             this.updateTableBody();
         });
         return span;
     }
 
-    createGreetingCell(userId){
+    createGreetingButton(userId){
         const span = document.createElement("span");
-        span.textContent = "Greeting";
-        span.className = "btnspan"
+        span.classList.add( "btnspan","fa-solid","fa-handshake");
         span.addEventListener('click', ()=>{
             this.userCon.trySettingGreeting(userId)
         });
         return span;
     }
-    createRemoveCell(userId){
+    createRemoveButton(userId){
         const span = document.createElement("span");
-        span.textContent = "Remove";
-        span.className = "btnspan"
-        span.addEventListener('click', ()=>{
-            this.userCon.tryRemovingUser(userId)
+        span.classList.add( "btnspan","fa-solid","fa-trash");
+        span.addEventListener('click',async ()=>{
+            await this.userCon.tryRemovingUser(userId)
         });
         return span;
+    }
+
+    showModal(show, id){
+        const modal = document.getElementById(id);
+        const bg = document.getElementById("bg-modal");
+        console.log(bg);
+        if(show){
+            bg.classList.remove("hidden");
+            modal.classList.remove("hidden");
+        }
+        else{
+            modal.classList.add("hidden");
+            bg.classList.add("hidden");
+        }
     }
 }
 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile Management System</title>
     <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -12,18 +13,18 @@
         <h1>User Profile Management System</h1>
         <nav>
             <ul>
-                <li><a href="#section1">User Profile</a></li>
-                <li><a href="#section3">Additional features</a></li>
+                <li><a href="#section1">Users</a></li>
+                <li><a href="#section2">Additional features</a></li>
             </ul>
         </nav>
     </header>
     <div class="modal hidden" id="editmodal">
         <form id="editform">
             <div class="headgrp">
-                <h2>User Profile Form</h2>
-                <span id="closebtn" class="close">X</span>
+                <h3>User Profile Form</h3>
+                <i id="closebtn" class="fa-solid fa-xmark btnspan"></i>
             </div>
-            <p>Only fill-up things you need to update</p>
+            <p id="pedit">Only fill-up things you need to update</p>
                 <div class="formgrp">
                     <label for="firstName">First Name:</label>
                     <input type="text" id="firstName" name="firstName">
@@ -60,18 +61,24 @@
     <div class="modal hidden" id="greetingcard">
         <div class="headgrp">
             <h3>Greetings</h3>
-            <span id="greetclose" class="close">X</span>
+            <i id="greetclose" class="fa-solid fa-xmark btnspan"></i>
         </div>
         <p id="greetingmessage"></p>
+    </div>
+    <div class="background-modal hidden" id="bg-modal">
+    </div>
+    <div class="modal hidden" id="confirmmodal">
+        <p>Would you like to <span id="confirmspan"></span></p>
+        <button type="button" id="yesbtn">Yes</button>
+        <button type="button" id="nobtn">No</button>
     </div>
     <main class="container">
         <section id="section1">
             <div class="headgrp">
                 <h2>All Profiles</h2>
                 <div class="actiondiv">
-                    <button type="button" id="addbtn">Add profile</button>
+                    <button type="button" id="addbtn"> <i class="fa-solid fa-user-plus"></i> Add User</button>
                 </div>
-
             </div>
             <div class="table-container">
                 <table id="usersTable">
@@ -102,7 +109,7 @@
             </div>
             </div>
         </section>
-        <section id="section3">
+        <section id="section2">
             <h2>Additional Features</h2>
             <div class="additionalfeatures">
                 <div class="fibonacciGenerator feat">
