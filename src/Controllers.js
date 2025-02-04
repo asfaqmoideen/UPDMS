@@ -21,12 +21,14 @@ import { users, emailList } from "./data";
                 age : age || user.age,
                 city : city || user.city,
                 address :{
-                    street : street || user.street,
-                    zipcode : zipcode || user.zipcode
+                    street : street || user.address.street,
+                    zipcode : zipcode || user.address.zipcode
                 }
             };
 
             users.set(this.userId, nestedObject);
+
+            this.userUI.showToast(`User ${firstName} Updated Successfully`)
         }
         
         trySettingGreeting(userId){
@@ -43,8 +45,8 @@ import { users, emailList } from "./data";
                     zipcode : zipcode 
                 }})
            this.userUI.resetContextForAddUser();
-           this.userUI.updateTableBody();
-           this.userUI.showModal(false, 'editmodal');
+           this.userUI.setUsersTable();
+           this.userUI.showToast("User Added Successfully");
         }
 
         async tryRemovingUser(userId){
@@ -53,10 +55,11 @@ import { users, emailList } from "./data";
                 if(result){
                     users.delete(userId);
                     this.userUI.updateTableBody();
+                    this.userUI.showToast(`User Deleted Successfully`)
                 }
             })
             .catch(error =>{
-                console.error(error);
+                this.userUI.showToast(error);
             })
         }
     }
@@ -124,16 +127,25 @@ import { users, emailList } from "./data";
     }
     setTableHeadings(){
         const tablehead = document.querySelector("#usersTable thead");
+        tablehead.classList.remove("hidden");
         tablehead.textContent = "";
         this.tableHeadings.forEach((heading) => {
             const td = document.createElement("td");
             td.textContent = Object.values(heading);
             tablehead.appendChild(td);
-        })
+        });
     }
 
     updateTableBody(){
+
         const tbody = document.querySelector("#usersTable tbody");
+
+        if(users.size == 0){
+            document.querySelector("#usersTable thead").classList.add("hidden");
+            tbody.textContent = "No users were added Yet";
+            return;
+        }
+
         tbody.textContent = "";
         users.forEach((value, key) =>{
             const row = document.createElement("tr");
@@ -170,6 +182,7 @@ import { users, emailList } from "./data";
     createEditButton(userId){
         const span = document.createElement("span");
         span.classList.add( "btnspan","fa-solid","fa-user-pen"); 
+        span.title = "Update this User Profile"
         span.addEventListener('click', ()=>{
             this.showModal(true, 'editmodal');
             this.userCon.userId = userId;
@@ -181,6 +194,7 @@ import { users, emailList } from "./data";
     createGreetingButton(userId){
         const span = document.createElement("span");
         span.classList.add( "btnspan","fa-solid","fa-handshake");
+        span.title = "Get Customised Greeting Message"
         span.addEventListener('click', ()=>{
             this.userCon.trySettingGreeting(userId)
         });
@@ -189,6 +203,7 @@ import { users, emailList } from "./data";
     createRemoveButton(userId){
         const span = document.createElement("span");
         span.classList.add( "btnspan","fa-solid","fa-trash");
+        span.title = "Remove this User"
         span.addEventListener('click',async ()=>{
             await this.userCon.tryRemovingUser(userId)
         });
@@ -198,7 +213,6 @@ import { users, emailList } from "./data";
     showModal(show, id){
         const modal = document.getElementById(id);
         const bg = document.getElementById("bg-modal");
-        console.log(bg);
         if(show){
             bg.classList.remove("hidden");
             modal.classList.remove("hidden");
@@ -207,6 +221,24 @@ import { users, emailList } from "./data";
             modal.classList.add("hidden");
             bg.classList.add("hidden");
         }
+    }
+
+    updateEditErrorMessage(message){
+        document.getElementById("editerror").textContent = message;
+    }
+
+    showToast(message) {
+
+        const toast = document.createElement('div');
+        toast.classList.add('toast');
+        toast.textContent = message;
+    
+        const container = document.getElementById('toast-container');
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
     }
 }
 

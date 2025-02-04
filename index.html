@@ -11,51 +11,99 @@
 
     <header>
         <h1>User Profile Management System</h1>
+    </header>
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h2>UPDMS</h2>
+        </div>
         <nav>
             <ul>
-                <li><a href="#section1">Users</a></li>
-                <li><a href="#section2">Additional features</a></li>
+                <li><a href="#section1"><i class="fa-solid fa-users"></i> Users</a></li>
+                <li><a href="#section2"><i class="fa-solid fa-calculator"></i>Fibonacci</a></li>
+                <li><a href="#section3"><i class="fa-solid fa-image"></i>    Image Viewer</a></li>
             </ul>
         </nav>
-    </header>
-    <div class="modal hidden" id="editmodal">
-        <form id="editform">
+    </div>
+
+    <div id="content">
+    <div class="modal hidden" id="addmodal">
+        <form id="addform">
             <div class="headgrp">
-                <h3>User Profile Form</h3>
-                <i id="closebtn" class="fa-solid fa-xmark btnspan"></i>
+                <h3>Add a new User Profile</h3>
+                <i id="addclosebtn" class="fa-solid fa-xmark btnspan" title="Close Add Profile"></i>
             </div>
-            <p id="pedit">Only fill-up things you need to update</p>
                 <div class="formgrp">
                     <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" name="firstName">
+                    <input type="text" id="firstName" name="firstName" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed" required>
                 </div>
                 
                 <div class="formgrp">
                     <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" name="lastName">
+                    <input type="text" id="lastName" name="lastName" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed" required>
                 </div>
                 
                 <div class="formgrp">
                     <label for="age">Age:</label>
-                    <input type="number" id="age" name="age">
+                    <input type="number" id="age" name="age" min="1" max="99" title="Age must be between 1 and 99" required>
                 </div>
                 
                 <div class="formgrp">
                     <label for="city">City:</label>
-                    <input type="text" id="city" name="city">
+                    <input type="text" id="city" name="city" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed" required>
                 </div>
                 
                 <div class="formgrp">
                     <label for="street">Street:</label>
-                    <input type="text" id="street" name="street">
+                    <input type="text" id="street" name="street" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed" required>
                 </div>
                 
                 <div class="formgrp">
                     <label for="zipcode">Zip Code:</label>
-                    <input type="text" id="zipcode" name="zipcode">
+                    <input type="text" id="zipcode" name="zipcode" pattern="\d{6}" title="Zip code must be exactly 6 digits" required>
                 </div>
         
-                <button type="submit" id="profile-submit" >Update Profile</button>
+                <button type="submit" id="add-submit" title="Add New User">Add Profile</button>
+        </form>
+    </div>
+    <div class="modal hidden" id="editmodal">
+        <form id="editform">
+            <div class="headgrp">
+                <h3>Update User Profile</h3>
+                <i id="closebtn" class="fa-solid fa-xmark btnspan" title="Close Update Profile"></i>
+            </div>
+            <p id="pedit">Only fill-up things you need to update</p>
+                <div class="formgrp">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+                </div>
+                
+                <div class="formgrp">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+                </div>
+                
+                <div class="formgrp">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" min="1" max="99" title="Age must be between 1 and 99">
+                </div>
+                
+                <div class="formgrp">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+                </div>
+                
+                <div class="formgrp">
+                    <label for="street">Street:</label>
+                    <input type="text" id="street" name="street" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+                </div>
+                
+                <div class="formgrp">
+                    <label for="zipcode">Zip Code:</label>
+                    <input type="text" id="zipcode" name="zipcode" pattern="\d{6}" title="Zip code must be exactly 6 digits">
+                </div>
+        
+                <button type="submit" id="profile-submit" title="Update the User">Update Profile</button>
+                <p id="editerror"></p>
         </form>
     </div>
     <div class="modal hidden" id="greetingcard">
@@ -69,15 +117,19 @@
     </div>
     <div class="modal hidden" id="confirmmodal">
         <p>Would you like to <span id="confirmspan"></span></p>
-        <button type="button" id="yesbtn">Yes</button>
-        <button type="button" id="nobtn">No</button>
+        <div class="btngrp">
+            <button type="button" id="yesbtn" title="Confirm the Above Opertaion">Yes</button>
+            <button type="button" id="nobtn" title="Cancel the Operation">No</button>
+        </div>
     </div>
     <main class="container">
+        <div id="toast-container"></div>
+
         <section id="section1">
             <div class="headgrp">
                 <h2>All Profiles</h2>
                 <div class="actiondiv">
-                    <button type="button" id="addbtn"> <i class="fa-solid fa-user-plus"></i> Add User</button>
+                    <button type="button" id="addbtn" title="Add a New User profile"> <i class="fa-solid fa-user-plus"></i> Add User</button>
                 </div>
             </div>
             <div class="table-container">
@@ -110,21 +162,29 @@
             </div>
         </section>
         <section id="section2">
-            <h2>Additional Features</h2>
+            <h2>Fibonacci Series Generator</h2>
             <div class="additionalfeatures">
                 <div class="fibonacciGenerator feat">
                     <label for="fiboinput">No. of Fibo Sequence</label>
-                    <input type="number" id="fiboinput">
-                    <button type="button" id="fibobtn">Get Fibo</button>
+                    <form id="fiboform">
+                        <input type="number" id="fiboinput" min="1" max="20" required>
+                        <button type="submit" id="fibobtn" title="Generate Fibonacci Series for the Given Number">Get Fibo</button>
+                    </form>
                     <p id="fibooutput"></p>
                 </div>
+            </div>
+        </section>
+        <section id="section3">
+            <h2>Random Image Viewer</h2>
+            <div class="additionalfeatures">
                 <div class="imageviewever feat">
                         <img id="imageid" alt="img from internet">
-                        <button type="button" id="imgnew">Get new image</button>
+                        <button type="button" id="imgnew" title="Get New Images from the Internet">Get new image</button>
                 </div>
             </div>
         </section>
     </main>
+</div>
     <script type="module" src="/src/index.js"></script>
     <script type="module" src="/src/Controllers.js"></script>
 </body>

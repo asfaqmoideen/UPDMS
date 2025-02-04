@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     userCon.populateUsersTable();
     addfeat.getImageFromInternet();
 
-    document.getElementById("fibobtn").addEventListener("click", () => {
+    document.getElementById("fiboform").addEventListener("submit", (e) => {
+        e.preventDefault();
         addfeat.generateFibo(document.getElementById("fiboinput").value);
     })
 
@@ -21,6 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('closebtn').addEventListener("click", ()=>{
         userCon.userUI.showModal(false, 'editmodal')
     });
+    document.getElementById('addclosebtn').addEventListener("click", ()=>{
+        userCon.userUI.showModal(false, 'addmodal')
+    });
 
     document.getElementById("greetbtn").addEventListener("click", ()=>{
         userCon.trySettingGreeting()
@@ -30,23 +34,34 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     
     document.getElementById('addbtn').addEventListener('click', ()=>{
-        userCon.userUI.showModal(true, 'editmodal')
-        document.getElementById("profile-submit").textContent = "Add Profile"
-        
+        userCon.userUI.showModal(true, 'addmodal');        
     })
 
-    const form = document.getElementById('editform');
-    form.addEventListener('submit', (event)=> {
+    const eform = document.getElementById('editform');
+    eform.addEventListener('submit', (event)=> {
         event.preventDefault();
-        const formData = new FormData(form);
+        const formData = new FormData(eform);
         const data = Object.fromEntries(formData.entries());
+        const hasValue = Object.values(data).some(value => value.trim() !== "");
 
-        if(document.getElementById('profile-submit').textContent == "Add Profile"){
-            userCon.tryAddingUser(data);
-            return; 
+        if (!hasValue) { 
+            userCon.userUI.updateEditErrorMessage('Please enter at least one value');
+            return;
         }
         userCon.tryeditingProfile(data);
         userCon.populateUsersTable();
+        userCon.userUI.showModal(false, 'editmodal')
     })
+
+    const addform = document.getElementById("addform");
+    addform.addEventListener("submit", (event)=>{
+        event.preventDefault();
+        const formData = new FormData(addform);
+        const enteredData = Object.fromEntries(formData.entries());
+        userCon.tryAddingUser(enteredData);
+        userCon.populateUsersTable();
+        userCon.userUI.showModal(false, 'addmodal')
+    })
+
 })
 // 
